@@ -4,8 +4,9 @@ import platform
 from threading import *
 import feedback
 import whisper_api
+import output
 
-app_version = 'v 1.0.0'
+app_version = 'v 1.1.0'
 
 def browse_files():
     filename = customtkinter.filedialog.askopenfilename(initialdir="/", title="Select a file")
@@ -13,7 +14,7 @@ def browse_files():
     input_field.insert(0, filename)
 
 def start_btn_clicked():
-    whisper_thread = Thread(target=whisper_api.start_whisper, args=(input_field.get(), model_option.get(), language_option.get(), bool(translation_check_var.get())))
+    whisper_thread = Thread(target=whisper_api.start_whisper, args=(input_field.get(), model_option.get(), language_option.get(), bool(translation_check_var.get()), output_option.get()))
     whisper_thread.start()
 
 customtkinter.set_default_color_theme("dark-blue")  # Themes: "blue" (standard), "green", "dark-blue"
@@ -25,7 +26,7 @@ if platform.system() == "Windows":
     root.iconbitmap("EW-icon.ico")
 
 # INPUT FRAME + CONTENTS
-input_frame = customtkinter.CTkFrame(master=root, width=780, height=90)
+input_frame = customtkinter.CTkFrame(master=root, width=780, height=135)
 input_label = customtkinter.CTkLabel(master=input_frame, text="Audio file:")
 input_field = customtkinter.CTkEntry(master=input_frame, width=575, placeholder_text="Select a .wav file to transcribe.")
 browse_btn = customtkinter.CTkButton(master=input_frame, text="Browse", width=85, command=browse_files)
@@ -33,17 +34,21 @@ language_label = customtkinter.CTkLabel(master=input_frame, text="Language: ")
 language_option = customtkinter.CTkOptionMenu(master=input_frame, values=whisper_api.whisper_languages, dynamic_resizing=True)
 model_label = customtkinter.CTkLabel(master=input_frame, text="Model: ")
 model_option = customtkinter.CTkOptionMenu(master=input_frame, values=whisper_api.whisper_models, dynamic_resizing=True)
+output_label = customtkinter.CTkLabel(master=input_frame, text="Output: ")
+output_option = customtkinter.CTkOptionMenu(master=input_frame, values=output.output_options, dynamic_resizing=True)
 translation_check_var = customtkinter.StringVar(value="")
 translation_checkbox = customtkinter.CTkCheckBox(master=input_frame, text="Translate to English", variable=translation_check_var, onvalue="True", offvalue="")
 input_frame.grid(row=0, column=0, padx=10, pady=10)
-input_label.place(relx=0.07, rely=0.28, anchor='center')
-input_field.place(relx=0.12, rely=0.28, anchor='w')
-browse_btn.place(relx=0.98, rely=0.28, anchor='e')
-language_label.place(relx=0.2, rely=0.72, anchor='e')
-language_option.place(relx=0.385, rely=0.72, anchor='e')
-model_label.place(relx=0.402, rely=0.72, anchor = 'w')
-model_option.place(relx=0.462, rely=0.72, anchor='w')
-translation_checkbox.place(relx=0.667, rely=0.72, anchor='w')
+input_label.place(relx=0.07, rely=0.2, anchor='center')
+input_field.place(relx=0.12, rely=0.2, anchor='w')
+browse_btn.place(relx=0.98, rely=0.2, anchor='e')
+language_label.place(relx=0.185, rely=0.5, anchor='e')
+language_option.place(relx=0.37, rely=0.5, anchor='e')
+model_label.place(relx=0.387, rely=0.5, anchor = 'w')
+model_option.place(relx=0.447, rely=0.5, anchor='w')
+output_label.place(relx=0.645, rely=0.5, anchor='w')
+output_option.place(relx=0.71, rely=0.5, anchor='w')
+translation_checkbox.place(relx=0.5, rely=0.8, anchor='center')
 
 # FEEDBACK FIELD
 feedback_frame = customtkinter.CTkFrame(master=root, width=780, height=280)
