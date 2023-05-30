@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="icon/EW-icon.ico"/>
+  <img src="icon/EW-icon.png" width="250"/>
 </p>
 
 # Easy Whisper
