@@ -5,8 +5,8 @@ whisper_languages = ['Detect', 'Afrikaans', 'Arabic', 'Armenian', 'Azerbaijani',
 whisper_models = whisper.available_models()
 whisper_models.insert(0, '')
 
-def start_whisper(audio_file, model_name, language, translation):
-    if language == "" or model_name == "" or audio_file == "":
+def start_whisper(audio_file, model_name, language, translation, output_mode):
+    if language == "" or model_name == "" or audio_file == "" or output_mode == "":
         print("> Make sure to fill in all the required details.")
         return None
     
@@ -30,7 +30,12 @@ def start_whisper(audio_file, model_name, language, translation):
 
     result = model.transcribe(audio_file, verbose = True, **whisper_job_kwargs)
 
-    output.write_txt(audio_file, model_name, language, translation, result)
+    if output_mode == 'txt':
+        output.write_txt(audio_file, model_name, language, translation, result)
+    elif output_mode == 'csv':
+        output.write_csv(audio_file, model_name, language, translation, result)
+    elif output_mode == 'srt':
+        output.write_srt(audio_file, model_name, language, translation, result)
     
     print("\n\n__________________________________________________________________________________________________\n\n")
     print(f"Done.\nTranscription saved next to original file.")
