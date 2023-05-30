@@ -18,10 +18,9 @@ Unfortunately, using it from the CLI or in a python program isn't always straigh
     - Translate to English!
 - Extra features:
     - Transcription uses SMPTE timecode. (currently only 25fps, starting at 00:00:00:00)
-    - Multiple export formats.
+    - Multiple export formats: TXT, CSV or SRT.
 
 ## Future plans
-- Exporting to other formats, like CSV or SRT.
 - Choosing your framerate for transcription.
 - Manually setting a starting timecode to use for transcription.
 - Reading SMPTE timecode from the file and using that for transcription.
