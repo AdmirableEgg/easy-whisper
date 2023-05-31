@@ -25,3 +25,4 @@ Unfortunately, using it from the CLI or in a python program isn't always straigh
 - Manually setting a starting timecode to use for transcription.
 - Reading SMPTE timecode from the file and using that for transcription.
 - Extracting an audio track from a (video)file with other tracks.
+- Translation to other languages using DeepL's API.
