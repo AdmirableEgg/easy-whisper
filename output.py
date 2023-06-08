@@ -13,7 +13,7 @@ def write_txt(audio_file, model_name, language, translation, result):
     output_file = open(os.path.join(dir_name, f"{now.strftime('%Y%m%d-%H%M%S')}_{audio_filename}_transcription.txt"), 'wt')
     output_file.write(f"Transcription performed on {now.strftime('%Y-%m-%d %H:%M:%S')}.\nLanguage: {language}\nModel: {model_name}\nTranslation: {translation}\n\n")
     for segment in result['segments']:
-        output_file.write(f"[{timecode.frames_to_TC(segment['start'] * 25, 25)} - {timecode.frames_to_TC(segment['end'] * 25, 25)}]   > ")
+        output_file.write(f"[{timecode.time_to_TC(segment['start'], 25)} - {timecode.time_to_TC(segment['end'], 25)}]   > ")
         output_file.write(f"{segment['text']}\n")
     output_file.close()
 
@@ -31,7 +31,7 @@ def write_csv(audio_file, model_name, language, translation, result):
     output_writer.writerow("")
     
     for segment in result['segments']:
-        output_writer.writerow([timecode.frames_to_TC(segment['start'] * 25, 25), timecode.frames_to_TC(segment['end'] * 25, 25), segment['text']])
+        output_writer.writerow([timecode.time_to_TC(segment['start'] * 25, 25), timecode.time_to_TC(segment['end'] * 25, 25), segment['text']])
     output_file.close()
 
 def write_srt(audio_file, model_name, language, translation, result):
