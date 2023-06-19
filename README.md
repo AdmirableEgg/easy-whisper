@@ -19,11 +19,10 @@ Unfortunately, using it from the CLI or in a python program isn't always straigh
 - Extra features:
     - Transcription uses SMPTE timecode. (currently only 25fps)
     - Read file TC to use in the transcription file.
+    - Manually set a TC to use in the transcription file.
     - Multiple export formats: TXT, CSV or SRT.
 
 ## Future plans
 - Choosing your framerate for transcription.
-- Manually setting a starting timecode to use for transcription.
-- Reading SMPTE timecode from the file and using that for transcription.
 - Extracting an audio track from a (video)file with other tracks.
 - Translation to other languages using DeepL's API.
