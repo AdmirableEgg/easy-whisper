@@ -5,6 +5,7 @@ from threading import *
 import feedback
 import whisper_api
 import output
+import timecode
 
 app_version = 'v 1.1.0'
 
@@ -12,9 +13,12 @@ def browse_files():
     filename = customtkinter.filedialog.askopenfilename(initialdir="/", title="Select a file")
     input_field.delete(0, customtkinter.END)
     input_field.insert(0, filename)
+    tc_window = timecode.TimecodeOptionWindow(timecode_entry)
+    tc_window.title("Timecode Selection")
+    tc_window.tc_option.configure(values=[timecode.time_to_TC(0, 25), timecode.time_to_TC(timecode.starttime_from_file(filename), 25)])
 
 def start_btn_clicked():
-    whisper_thread = Thread(target=whisper_api.start_whisper, args=(input_field.get(), model_option.get(), language_option.get(), bool(translation_check_var.get()), output_option.get()))
+    whisper_thread = Thread(target=whisper_api.start_whisper, args=(input_field.get(), model_option.get(), language_option.get(), bool(translation_check_var.get()), output_option.get(), timecode.tc_to_time(timecode_entry.get(), 25)))
     whisper_thread.start()
 
 customtkinter.set_default_color_theme("dark-blue")  # Themes: "blue" (standard), "green", "dark-blue"
@@ -38,6 +42,8 @@ output_label = customtkinter.CTkLabel(master=input_frame, text="Output: ")
 output_option = customtkinter.CTkOptionMenu(master=input_frame, values=output.output_options, dynamic_resizing=True)
 translation_check_var = customtkinter.StringVar(value="")
 translation_checkbox = customtkinter.CTkCheckBox(master=input_frame, text="Translate to English", variable=translation_check_var, onvalue="True", offvalue="")
+timecode_label = customtkinter.CTkLabel(master=input_frame, text="Starting_TC:")
+timecode_entry = customtkinter.CTkEntry(master=input_frame, width=90)
 input_frame.grid(row=0, column=0, padx=10, pady=10)
 input_label.place(relx=0.07, rely=0.2, anchor='center')
 input_field.place(relx=0.12, rely=0.2, anchor='w')
@@ -49,6 +55,8 @@ model_option.place(relx=0.447, rely=0.5, anchor='w')
 output_label.place(relx=0.645, rely=0.5, anchor='w')
 output_option.place(relx=0.71, rely=0.5, anchor='w')
 translation_checkbox.place(relx=0.5, rely=0.8, anchor='center')
+timecode_label.place(relx=0.098, rely=0.8, anchor='w')
+timecode_entry.place(relx=0.2, rely=0.8, anchor='w')
 
 # FEEDBACK FIELD
 feedback_frame = customtkinter.CTkFrame(master=root, width=780, height=280)
