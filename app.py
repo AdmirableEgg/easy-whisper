@@ -7,7 +7,7 @@ import whisper_api
 import output
 import timecode
 
-app_version = 'v 1.1.0'
+app_version = 'v 1.2.0'
 
 def browse_files():
     filename = customtkinter.filedialog.askopenfilename(initialdir="/", title="Select a file")
