@@ -26,3 +26,4 @@ Unfortunately, using it from the CLI or in a python program isn't always straigh
 - Choosing your framerate for transcription.
 - Extracting an audio track from a (video)file with other tracks.
 - Translation to other languages using DeepL's API.
+- Speaker identification / diarization
