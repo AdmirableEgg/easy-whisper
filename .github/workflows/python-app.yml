@@ -40,7 +40,7 @@ jobs:
         # the version of python
         python_version: 3.11 # optional, default is 3.9.7
         # the version of pyinstaller
-        # pyinstaller_version: # optional, default is 4.7
+        pyinstaller_version: 4.5# optional, default is 4.7
         # the output exe name
         artifact: Easy Whisper test build# optional, default is main
         # whether to install requirements.txt before build
