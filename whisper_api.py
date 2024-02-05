@@ -32,6 +32,8 @@ def start_whisper(audio_file, model_name, language, translation, output_mode, st
 
     if output_mode == 'txt':
         output.write_txt(audio_file, model_name, language, translation, result, start_time)
+    if output_mode == 'txt without TC':
+        output.write_txt_without_tc(audio_file, model_name, language, translation, result)
     elif output_mode == 'csv':
         output.write_csv(audio_file, model_name, language, translation, result, start_time)
     elif output_mode == 'srt':
